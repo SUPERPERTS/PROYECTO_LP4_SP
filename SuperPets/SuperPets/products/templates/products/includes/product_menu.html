@@ -1,0 +1,26 @@
+<!-- Template Tag Include sirve para incluir porciones de codigo donde nosotros queramos -->
+{% load static %} <!-- Incluyendo ficheros estaticos para usar el ckeditor e inyectar este codigo en cada una de las vistas con el submenu-->
+<script type="text/javascript" src="{% static "ckeditor/ckeditor-init.js" %}"></script>
+<script type="text/javascript" src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script>
+<link href="{% static 'products/css/custom_ckeditor.css' %}" rel="stylesheet">
+
+{% if request.user.is_staff %}
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container">
+    <a class="navbar-brand mb-0 h1" href="{% url 'admin:products_product_add' %}"><i>Administrar</i></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarAdministrar" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarAdministrar">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'admin:products_product_add' %}"><i>Crear producto</i></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'admin:products_product_add' %}"><i>Listar productos</i></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+{% endif %}

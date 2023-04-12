@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>{% block title %}{% endblock %}</title>
+    {% load static %}
+    <!-- Fuentes -->
+
+    <!-- Estilos -->
+    {% load bootstrap5 %}
+    {% load bootstrap_icons %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+    {% comment %} <link href="{% static 'core/css/main.css' %}" rel="stylesheet"> {% endcomment %}
+  </head>
+
+  <body>
+    <header>
+      <!-- Navegación -->
+      <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #368BDE;padding-top: 12px;padding-bottom: 12px;">
+        <div class="container">
+          <a class="navbar-brand mb-0 h1" href="{% url 'home' %}">SuperPets</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'home' %}">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'products:products' %}">Productos</a>
+              </li>
+            </ul>
+
+            <ul class="navbar-nav mx-auto" style="width: auto;">
+              <li class="nav-item">
+                <form class="d-flex" role="search">
+                  <input class="form-control" type="search" placeholder="Buscar un producto" aria-label="Search">
+                  <button class="btn btn-warning" type="submit">{% bs_icon 'search' %}</button>
+                </form>
+              </li>
+            </ul>
+
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0" >
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Mi cuenta
+                </a>
+                <ul class="dropdown-menu">
+                  {% if not request.user.is_authenticated %} <!-- Si no esta autenticado -->
+                      <a class="dropdown-item" href="{% url 'login' %}">Acceder</a>
+                      <a class="dropdown-item" href="{% url 'signup' %}">Registrarse</a>
+                  {% else %}
+                      <a class="dropdown-item" href="{% url 'logout' %}">Salir</a>
+                  {% endif %}
+                </ul>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'products:products' %}">{% bs_icon 'cart-fill' %} Carrito</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+      {% include 'products/includes/product_menu.html' %}
+    </header>
+
+    <!-- Contenido -->
+    {% block content %}{% endblock %}
+    
+
+    <!-- Pie de pagina -->
+    <div class="container">
+      <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+        <div class="col-md-4 d-flex align-items-center">
+          <a href="/" class="mb-3 me-2 mb-md-0 text-body-secondary text-decoration-none lh-1">
+            <svg class="bi" width="30" height="24"><use xlink:href="#bootstrap"></use></svg>
+          </a>
+          <span class="mb-3 mb-md-0 text-body-secondary">© 2023 SuperPets</span>
+        </div>
+    
+        <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
+          <p class="m-0">
+            {% if LINK_TWITTER %}
+              <a href="{{LINK_TWITTER}}" class="link">
+                <span class="fa-stack fa-lg">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                </span>
+              </a>
+            {% endif %}
+    
+            {% if LINK_FACEBOOK %}
+              <a href="{{LINK_FACEBOOK}}" class="link">
+                <span class="fa-stack fa-lg">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                </span>
+              </a>
+            {% endif %}
+            
+            {% if LINK_INSTAGRAM %}
+              <a href="{{LINK_INSTAGRAM}}" class="link">
+                <span class="fa-stack fa-lg">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa fa-instagram fa-stack-1x fa-inverse"></i>
+                </span>
+              </a>
+            {% endif %}
+          </p>
+        </ul>
+      </footer>
+    </div>
+
+    <!-- Javascript -->
+    {% comment %} <script src="{% static 'core/vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'core/js/main.js' %}"></script> {% endcomment %}
+  </body>
+</html>
